@@ -94,7 +94,7 @@ public class UserControllerServlet extends HttpServlet {
 		String user_gender =  "fdsafsa";
 		String user_dob =  "1995-01-01";
 		String user_address =  "fdsafsa";
-		String user_contact =  "fdsafsa";
+		String user_contact =  "999";
 		
 		User theUser = new User(user_username,user_password,user_firstname,user_lastname,user_email, user_gender, user_dob,user_address,user_contact);
 		

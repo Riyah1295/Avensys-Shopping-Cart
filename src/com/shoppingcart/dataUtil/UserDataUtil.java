@@ -13,7 +13,7 @@ import com.shoppingcart.entity.User;
 
 public class UserDataUtil {
 	
-	@Resource(name="jdbc/shopping") // TODO: add database schema name
+	@Resource(name="jdbc/shopping")
 	private DataSource dataSource;
 
 	public UserDataUtil(DataSource dataSource) {
@@ -53,9 +53,9 @@ public class UserDataUtil {
 			pstmt.setString(7, theUser.getDate_of_birth());
 			pstmt.setString(8, theUser.getAddress());
 			pstmt.setString(9, theUser.getContact());
-			
 			boolean registrationSuccess = pstmt.execute();
-			System.out.println("registration sql statement success: "+registrationSuccess);
+			
+			System.out.println("registration sql statement success (false = success): "+registrationSuccess);
 			
 		}finally {
 		close(con, pstmt, null);
