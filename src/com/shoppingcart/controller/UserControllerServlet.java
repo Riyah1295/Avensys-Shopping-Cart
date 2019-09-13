@@ -1,8 +1,10 @@
 package com.shoppingcart.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +25,7 @@ public class UserControllerServlet extends HttpServlet {
 	// initialize user's data util
 	private UserDataUtil userDataUtil;
 	
-	@Resource(name="jdbc/") // TODO: add database schema name
+	@Resource(name="jdbc/shopping") // TODO: add database schema name
 	private DataSource dataSource;
 	
 	@Override
@@ -48,6 +50,9 @@ public class UserControllerServlet extends HttpServlet {
 			 * 3. run the method for the given command
 			 */
 			String theCommand = request.getParameter("command");
+			if(theCommand == null) {
+				theCommand = "REGISTER";
+			}
 			switch(theCommand) {
 			case "VIEW":
 				viewUser(request,response);
@@ -56,8 +61,7 @@ public class UserControllerServlet extends HttpServlet {
 				registerUser(request,response);
 				break;
 			default:
-				viewUser(request, response);
-				
+				registerUser(request, response);
 			}
 			
 		}catch(Exception e) {
@@ -66,26 +70,39 @@ public class UserControllerServlet extends HttpServlet {
 		
 	}
 
-	private void registerUser(HttpServletRequest request, HttpServletResponse response) {
+	private void registerUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 		// TODO Auto-generated method stub
 		/**
 		 * 1. Read input that is passed in
 		 * 2. create new user object to save the input
 		 * 3. insert new user into database
 		 */
-		String user_firstname = request.getParameter(""); // TODO: find out the exact name of the input
-		String user_lastname = request.getParameter("");
-		String user_username = request.getParameter("");
-		String user_email = request.getParameter("");
-		String user_password = request.getParameter("");
-		String user_gender = request.getParameter("");
-		String user_dob = request.getParameter("");
-		String user_address = request.getParameter("");
-		String user_contact = request.getParameter("");
+//		String user_firstname = request.getParameter(""); // TODO: find out the exact name of the input
+//		String user_lastname = request.getParameter("");
+//		String user_username = request.getParameter("");
+//		String user_email = request.getParameter("");
+//		String user_password = request.getParameter("");
+//		String user_gender = request.getParameter("");
+//		String user_dob = request.getParameter("");
+//		String user_address = request.getParameter("");
+//		String user_contact = request.getParameter("");
+		String user_firstname = "fdsafsa";
+		String user_lastname =  "fdsafsa";
+		String user_username =  "fdsafsa";
+		String user_email =  "fdsafsa@fdsa.co";
+		String user_password =  "fdsafsa";
+		String user_gender =  "fdsafsa";
+		String user_dob =  "1995-01-01";
+		String user_address =  "fdsafsa";
+		String user_contact =  "fdsafsa";
 		
 		User theUser = new User(user_username,user_password,user_firstname,user_lastname,user_email, user_gender, user_dob,user_address,user_contact);
 		
 		userDataUtil.registerUser(theUser);
+		System.out.println("db insertion success");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/default.jsp");
+		
+		dispatcher.forward(request, response);
 	}
 
 	private void viewUser(HttpServletRequest request, HttpServletResponse response) {
