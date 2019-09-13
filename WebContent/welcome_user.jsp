@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>test db connection and checking if mock registration successful.</h1>
+	<h1>Welcome, user</h1>
 </body>
 </html>

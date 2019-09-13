@@ -49,11 +49,12 @@ public class UserControllerServlet extends HttpServlet {
 			 * 2. run switch based off command value
 			 * 3. run the method for the given command
 			 */
-			String theCommand = request.getParameter("command");
+			String theCommand = request.getParameter("command"); // GET THE HIDDEN INPUT COMMAND FROM THE HTML/JSP PAGE
 			if(theCommand == null) { // FOR BACKEND TESTING ONLY, REMOVE IF THERE IS HTML/JSP PAGES AVAILABLE
 				theCommand = "HOME";
 			}
 			switch(theCommand) {
+			
 			case "LOGIN":
 				loginUser(request,response);
 				break;
@@ -68,7 +69,6 @@ public class UserControllerServlet extends HttpServlet {
 				break;
 			default:
 				defaultIndexPage(request, response);
-
 			}
 			
 		}catch(Exception e) {
@@ -79,7 +79,7 @@ public class UserControllerServlet extends HttpServlet {
 
 	private void defaultIndexPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// this method re-directs to the home page whenever the project starts
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp"); // TODO: redirect to welcome page 
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/shopping_main_menu.jsp"); // TODO: redirect to welcome page 
 		dispatcher.forward(request, response);
 	}
 
@@ -89,17 +89,17 @@ public class UserControllerServlet extends HttpServlet {
 		 * 2. execute sql statement to find user
 		 * 3. save result set into new Student object and display.
 		 */
-		String input_email = request.getParameter("");
-		String input_password = request.getParameter("");
+		String input_email = request.getParameter("username_login");
+		String input_password = request.getParameter("password_login");
 		User thisUser = userDataUtil.loginUser(input_email,input_password);
 		if(thisUser== null) { // this means no such email or password exist in the db, this will return back to login page to display error
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/.jsp"); // TODO: return to login page and display error message
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/login_form.jsp"); // TODO: return to login page and display error message
 			request.setAttribute("", "username or password is incorrect."); // TODO: add the error msg name tag
 			dispatcher.forward(request, response);
 		}else { // thisUser has data inside, meaning the username and password matches
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/.jsp"); // TODO: redirect to welcome page 
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/welcome_user.jsp"); // TODO: redirect to welcome page 
 			request.setAttribute("", ""); // TODO: might have attributes you want to display, might add later.
 			dispatcher.forward(request, response);
 		}
@@ -135,7 +135,7 @@ public class UserControllerServlet extends HttpServlet {
 		
 		userDataUtil.registerUser(theUser);
 		System.out.println("db insertion success");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/.jsp"); // TODO: change this page to a thankyou page
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/register_thankyou.jsp"); // TODO: change this page to a thankyou page
 		
 		dispatcher.forward(request, response);
 	}
@@ -149,7 +149,7 @@ public class UserControllerServlet extends HttpServlet {
 		String user_username = request.getParameter("");
 		User userProfile = userDataUtil.viewUserProfile(user_username);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/.jsp"); // TODO: change the jsp to the profile page
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/user_profile.jsp"); // TODO: change the jsp to the profile page
 		request.setAttribute("", userProfile); // TODO: remember set the attribute name
 		dispatcher.forward(request, response);
 		

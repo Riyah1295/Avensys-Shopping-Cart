@@ -41,7 +41,7 @@ public class UserDataUtil {
 		PreparedStatement pstmt = null;
 		try {
 			con = dataSource.getConnection();
-			String query = "INSERT INTO `shopping`.`user` (`Username`, `Password`, `Firstname`, `Lastname`, `Email`, `Gender`, `Dob`, `Address`, `Contact`)"
+			String query = "INSERT INTO shopping.user (Username, Password, Firstname, Lastname, Email, Gender, Dob, Address, Contact)"
 					+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, theUser.getUsername());
