@@ -73,3 +73,28 @@ CREATE TABLE `shopping`.`cart` (
     ON UPDATE NO ACTION);
 
   DROP TABLE `shopping`.`cart`;
+
+
+
+CREATE TABLE `shopping`.`carthistory` (
+  `CartHist_Id` INT NOT NULL AUTO_INCREMENT,
+  `Username` VARCHAR(45) NOT NULL,
+  `Product_Id` INT NOT NULL,
+  `Purchase_Date` DATE NOT NULL,
+  `Total_Price` DOUBLE NOT NULL,
+  PRIMARY KEY (`CartHist_Id`),
+  INDEX `Username_idx` (`Username` ASC),
+  INDEX `Product_Id_idx` (`Product_Id` ASC),
+  CONSTRAINT `Username_fk`
+    FOREIGN KEY (`Username`)
+    REFERENCES `shopping`.`cart` (`Username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Product_Id_fk`
+    FOREIGN KEY (`Product_Id`)
+    REFERENCES `shopping`.`cart` (`Product_Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+SELECT * FROM carthistory;
