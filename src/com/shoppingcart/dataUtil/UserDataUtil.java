@@ -62,5 +62,61 @@ public class UserDataUtil {
 		}
 		
 	}
+	public User loginUser(String input_email, String input_password) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rst = null;
+		User theUser = null;
+		try {
+			con = dataSource.getConnection();
+			String query = "SELECT * FROM user WHERE Username = ? AND Password=?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, input_email);
+			pstmt.setString(2, input_password);
+			rst = pstmt.executeQuery();
+			if(rst.next()) { // this is only returning 1 row; the registered user
+				theUser = new User();
+				theUser.setFirst_name(rst.getString("Firstname"));
+				theUser.setLast_name(rst.getString("Lastname"));
+				theUser.setEmail(rst.getString("Email"));
+				theUser.setGender(rst.getString("Gender"));
+				theUser.setDate_of_birth(rst.getString("Dob"));
+				theUser.setAddress(rst.getString("Address"));
+				theUser.setContact(rst.getString("Contact"));
+				System.out.println("profile retrieve done.");
+			}
+			
+			return theUser;
+		}finally {
+		close(con, pstmt, rst);
+		}
+	}
+	public User viewUserProfile(String user_username) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rst = null;
+		User theUser = null;
+		try {
+			con = dataSource.getConnection();
+			String query = "SELECT * FROM user WHERE Username = ?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, user_username);
+			rst = pstmt.executeQuery();
+			if(rst.next()) { // returns the profile details of the user
+				theUser = new User();
+				theUser.setFirst_name(rst.getString("Firstname"));
+				theUser.setLast_name(rst.getString("Lastname"));
+				theUser.setEmail(rst.getString("Email"));
+				theUser.setGender(rst.getString("Gender"));
+				theUser.setDate_of_birth(rst.getString("Dob"));
+				theUser.setAddress(rst.getString("Address"));
+				theUser.setContact(rst.getString("Contact"));
+				System.out.println("profile retrieve done.");
+			}
+			return theUser;
+		}finally {
+			close(con, pstmt, rst);
+		}
+	}
 
 }
