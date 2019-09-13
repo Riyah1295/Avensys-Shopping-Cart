@@ -93,9 +93,8 @@ public class UserControllerServlet extends HttpServlet {
 		String input_password = request.getParameter("password_login");
 		User thisUser = userDataUtil.loginUser(input_email,input_password);
 		if(thisUser== null) { // this means no such email or password exist in the db, this will return back to login page to display error
-			
+			request.setAttribute("ERROR_MSG", "username or password is incorrect."); // TODO: add the error msg name tag
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/login_form.jsp"); // TODO: return to login page and display error message
-			request.setAttribute("", "username or password is incorrect."); // TODO: add the error msg name tag
 			dispatcher.forward(request, response);
 		}else { // thisUser has data inside, meaning the username and password matches
 			
