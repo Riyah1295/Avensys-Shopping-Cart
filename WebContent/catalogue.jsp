@@ -9,12 +9,27 @@
 </head>
 <body>
 <h1>Product Catalogue</h1>
+<p><a href="">My Cart</a></p>
+<table border="1">
+	<tr>
+		<th>Product Name</th>
+		<th>Product Description</th>
+		<th>Product Price</th>
+		<th></th>
+	</tr>
+	<c:forEach var="product" items="${ PRODUCT_LIST }">
+		<tr>
+			<td>${ product.product_name }</td>
+			<td>${ product.product_description }</td>
+			<td>${ product.product_price }</td>
+			<c:url var="tempLink" value="CartControllerServlet">
+				<c:param name="command" value="ADD" />
+				<c:param name="productId" value="${ product.product_id }" />
+			</c:url>
+			<td><a href="${ tempLink }">Add to Cart</a></td>
+		</tr>
+	</c:forEach>
+</table>
 
-<c:forEach var="product" items="${ PRODUCT_LIST }">
-	<p>${ product.product_id }</p>
-	<p>${ product.product_name }</p>
-	<p>${ product.product_description }</p>
-	<p>${ product.product_price }</p>
-</c:forEach>
 </body>
 </html>

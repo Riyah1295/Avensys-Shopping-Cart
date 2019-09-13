@@ -81,7 +81,7 @@ public class ProductControllerServlet extends HttpServlet {
 		int pId = Integer.parseInt(id);
 		Product product_info=productDataUtil.getProduct(pId);
 		request.setAttribute("ProductInfo", product_info);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/test.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/single_product_page.jsp");
 		//forward to jsp
 		dispatcher.forward(request, response);
 		
