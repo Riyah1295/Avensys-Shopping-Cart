@@ -51,7 +51,7 @@ public class UserControllerServlet extends HttpServlet {
 			 */
 			String theCommand = request.getParameter("command");
 			if(theCommand == null) { // FOR BACKEND TESTING ONLY, REMOVE IF THERE IS HTML/JSP PAGES AVAILABLE
-				theCommand = "REGISTER";
+				theCommand = "HOME";
 			}
 			switch(theCommand) {
 			case "LOGIN":
@@ -63,14 +63,24 @@ public class UserControllerServlet extends HttpServlet {
 			case "REGISTER":
 				registerUser(request,response);
 				break;
+			case "HOME":
+				defaultIndexPage(request, response);
+				break;
 			default:
-				registerUser(request, response);
+				defaultIndexPage(request, response);
+
 			}
 			
 		}catch(Exception e) {
 			throw new ServletException(e);
 		}
 		
+	}
+
+	private void defaultIndexPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// this method re-directs to the home page whenever the project starts
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp"); // TODO: redirect to welcome page 
+		dispatcher.forward(request, response);
 	}
 
 	private void loginUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
