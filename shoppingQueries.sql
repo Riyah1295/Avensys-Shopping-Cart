@@ -58,7 +58,7 @@ insert into shopping.product (Product_Id, Product_Name, Product_Desc, Product_Pr
 CREATE TABLE `shopping`.`cart` (
   `Username` VARCHAR(45) NOT NULL,
   `Product_Id` INT NOT NULL,
-  `Quantity` VARCHAR(45) NOT NULL,
+  `Quantity` INT NOT NULL,
   INDEX `Username_idx` (`Username` ASC),
   INDEX `Product_Id_idx` (`Product_Id` ASC),
   CONSTRAINT `Username`
