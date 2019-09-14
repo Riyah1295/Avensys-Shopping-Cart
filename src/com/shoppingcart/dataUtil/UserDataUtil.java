@@ -133,4 +133,35 @@ public class UserDataUtil {
 			close(con,stmt,rst);
 		}
 	}
+	
+	public User getUser(String username) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rst = null;
+		User theUser = null;
+		try {
+			con = dataSource.getConnection();
+			String query = "SELECT * FROM user WHERE Username = ?";
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, username);
+			rst = pstmt.executeQuery();
+			if(rst.next()) { // this is only returning 1 row; the registered user
+				theUser = new User();
+				theUser.setUsername(rst.getString("Username"));
+				theUser.setPassword(rst.getString("password"));
+				theUser.setFirst_name(rst.getString("Firstname"));
+				theUser.setLast_name(rst.getString("Lastname"));
+				theUser.setEmail(rst.getString("Email"));
+				theUser.setGender(rst.getString("Gender"));
+				theUser.setDate_of_birth(rst.getString("Dob"));
+				theUser.setAddress(rst.getString("Address"));
+				theUser.setContact(rst.getString("Contact"));
+				System.out.println("profile retrieve done.");
+			}
+			
+			return theUser;
+		}finally {
+		close(con, pstmt, rst);
+		}
+	}
 }
