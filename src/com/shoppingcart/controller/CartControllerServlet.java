@@ -20,7 +20,7 @@ import com.shoppingcart.entity.CartProduct;
 /**
  * Servlet implementation class ShoppingCartServlet
  */
-@WebServlet("/ShoppingCartServlet")
+@WebServlet("/CartControllerServlet")
 public class CartControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -34,7 +34,7 @@ public class CartControllerServlet extends HttpServlet {
 	List<Cart> userShoppingCart;
 	Cart cart = null;
 	 
-	@Resource(name="jdbc/EMP")
+	@Resource(name="jdbc/shopping")
 	private DataSource dataSource;
 	
     @Override

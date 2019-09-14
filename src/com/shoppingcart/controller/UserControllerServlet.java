@@ -97,7 +97,7 @@ public class UserControllerServlet extends HttpServlet {
 		
 		userDataUtil.registerUser(theUser);
 		System.out.println("db insertion success");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/default.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/thankYou.jsp");
 		
 		dispatcher.forward(request, response);
 	}
@@ -122,7 +122,7 @@ public class UserControllerServlet extends HttpServlet {
 		 * 2. execute sql statement to find user
 		 * 3. save result set into new Student object and display.
 		 */
-		String uname = request.getParameter("uname");
+		/*String uname = request.getParameter("uname");
 		String pswd = request.getParameter("pswd");
 		User thisUser = userDataUtil.loginUser(uname,pswd);
 		if(thisUser== null) { // this means no such email or password exist in the db, this will return back to login page to display error
@@ -132,12 +132,12 @@ public class UserControllerServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}else { // thisUser has data inside, meaning the username and password matches
 			
-			List<Product> theProducts = userDataUtil.getProducts();
+			List<Product> theProducts = userDataUtil.getProducts();*/
 					
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/catalogue.jsp"); // TODO: redirect to welcome page 
-			request.setAttribute("products", theProducts); // TODO: might have attributes you want to display, might add later.
+			//request.setAttribute("products", theProducts); // TODO: might have attributes you want to display, might add later.
 			dispatcher.forward(request, response);
-		}
+		//}
 	}
 
 }
