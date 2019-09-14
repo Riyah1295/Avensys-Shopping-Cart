@@ -12,7 +12,7 @@ import com.shoppingcart.entity.Product;
 
 public class ShoppingCartUtil {
 
-	@Resource(name = "jdbc/Shopping")
+	@Resource(name = "jdbc/shopping")
 	private DataSource dataSource;
 
 	

@@ -14,7 +14,7 @@ import com.shoppingcart.entity.Product;
 
 public class ProductDataUtil {
 
-	@Resource(name="jdbc/Shopping")
+	@Resource(name="jdbc/shopping")
 	private DataSource dataSource;
 
 	public ProductDataUtil(DataSource dataSource) {
