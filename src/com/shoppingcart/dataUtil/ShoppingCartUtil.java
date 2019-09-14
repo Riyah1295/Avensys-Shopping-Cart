@@ -12,7 +12,7 @@ import com.shoppingcart.entity.Product;
 
 public class ShoppingCartUtil {
 
-	@Resource(name = "jdbc/shopping")
+	@Resource(name = "jdbc/Shopping")
 	private DataSource dataSource;
 
 	
@@ -23,62 +23,45 @@ public class ShoppingCartUtil {
 
 	public List<CartProduct> getCartItems(String username) throws Exception {
 
-		List<CartProduct> cartProductList = new ArrayList<>();
-		Cart cart;
-		Product product = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		PreparedStatement inner_pstmt = null;
-		ResultSet rst = null;
-		ResultSet inner_rst = null;
-		String query;
-
-		try {
-			// Connect to DB
-			con = dataSource.getConnection();
-
-			// Create query for all cart items of a user
-			query = "SELECT * FROM shopping.cart WHERE Username = ?";
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, username);
-			// Execute query
-			rst = pstmt.executeQuery();
-			// Process result set
-			while (rst.next()) {
-				// Retrieve cart item data from result set
-				int productId = rst.getInt("Product_Id");
-				int quantity = rst.getInt("Quantity");
-				// Create new cart
-				cart = new Cart(username, productId, quantity);
-
-				// Create query to get the product of the cart above
-				query = "SELECT * FROM shopping.product WHERE Product_Id = ?";
-				inner_pstmt = con.prepareStatement(query);
-				inner_pstmt.setInt(1, productId);
-
-				// Execute query to get product details
-				inner_rst = inner_pstmt.executeQuery();
-				if (inner_rst.next()) {
-					int product_id = inner_rst.getInt("Product_Id");
-					String product_name = inner_rst.getString("Product_Name");
-					String product_desc = inner_rst.getString("Product_Desc");
-					double product_price = inner_rst.getDouble("Product_Price");
+			List<CartProduct> cartProduct = new ArrayList<>();
+			CartProduct tempProduct = null;
+			Connection con = null;
+			PreparedStatement pstmt=null;
+			ResultSet rs = null;
+			
+			try {
+				//create a connection
+				con = dataSource.getConnection();
+				//create sql query 
+				String qry = "SELECT * FROM shopping.cart WHERE Username=?";
+				pstmt = con.prepareStatement(qry);
+				pstmt.setString(1, username);
+				//execute the sql query
+				rs= pstmt.executeQuery();
+				
+				while (rs.next())
+				{
+					int cartId= rs.getInt("Cart_Id");
+					String user = rs.getString("Username");
+					String product_name = rs.getString("Product_Name");
+					String product_desc = rs.getString("Product_Desc");
+					double product_price = rs.getDouble("Product_Price");
+					int quantity = rs.getInt("Quantity");
+					double Total_Quantity_Price = rs.getDouble("Total_Quantity_Price");
 					// Create new product object
-					product = new Product(product_id, product_name, product_desc, product_price);
+					tempProduct = new CartProduct(cartId, user, product_name, product_desc, product_price, quantity, Total_Quantity_Price);
+					cartProduct.add(tempProduct);
 				}
-				// Add CartProduct to list
-				cartProductList.add(new CartProduct(cart, product));
-			}
-			// Return CartProduct list
-			return cartProductList;
-
-		} finally {
-			// Close JDBC connection
-			close(con, pstmt, rst);
-		}
+				
+				return cartProduct;
+				}
+				finally
+				{
+				close(con,pstmt,rs);
+				}
 	}
 
-	public CartProduct getCartProductItem(String username, int productId) throws Exception {
+	/*public CartProduct getCartProductItem(String username, int productId) throws Exception {
 
 		Cart cart = null;
 		Product product = null;
@@ -133,7 +116,7 @@ public class ShoppingCartUtil {
 			close(con, pstmt, rst);
 		}
 	}
-	
+	*/
 	public void updateShoppingCartItem(Cart cartItem) throws Exception {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -402,5 +385,7 @@ public class ShoppingCartUtil {
 				close(con,pstmt,rs);
 				}
 		}
+
+		
 
 }
