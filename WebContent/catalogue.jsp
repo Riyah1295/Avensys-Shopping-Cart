@@ -20,7 +20,7 @@ h1, h2, h3, h4, h5, h6 {
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
-    <a href="index.html" class="w3-bar-item w3-button">Avensys ShopLah!</a>
+    <label class="w3-bar-item w3-button">Avensys ShopLah!</label>
     <!-- Right-sided navbar links. Hide them on small screens -->
     <div class="w3-right w3-hide-small">
     		<c:url var="Jacket" value="CartControllerServlet">
@@ -40,20 +40,25 @@ h1, h2, h3, h4, h5, h6 {
 				<c:param name="command" value="SHIRT" />
 				<c:param name="username" value="${ username }"/>
 			</c:url>
-        <a href="${ Shirt }" class="w3-bar-item w3-button">Shirt</a>
+        <a href="${ Shirt }" class="w3-bar-item w3-button">Shirts</a>
         
         <c:url var="Short" value="CartControllerServlet">
 				<c:param name="command" value="SHORT" />
 				<c:param name="username" value="${ username }"/>
 			</c:url>
-        <a href="${ Short }" class="w3-bar-item w3-button">Short</a>
+        <a href="${ Short }" class="w3-bar-item w3-button">Shorts</a>
         
         <c:url var="Shoe" value="CartControllerServlet">
 				<c:param name="command" value="SHOE" />
 				<c:param name="username" value="${ username }"/>
 			</c:url>
-        <a href="${ Shoe }" class="w3-bar-item w3-button">Shoe</a>
+        <a href="${ Shoe }" class="w3-bar-item w3-button">Shoes</a>
 	       
+	       <c:url var="Cart" value="CartControllerServlet">
+				<c:param name="command" value="CART" />
+				<c:param name="username" value="${ username }"/>
+			</c:url>
+	       <a href="${ Cart }" class="w3-bar-item w3-button" style="border:1px solid;">Cart</i></a>
       
     </div>
   </div>
@@ -67,27 +72,38 @@ h1, h2, h3, h4, h5, h6 {
 
 	<!-- Product Section -->
 		<div class="w3-container w3-padding-64" id="contact">
-			
+			<center>
 			<h1>Our Products</h1>
 			<br>
 				
 				<c:forEach var="product" items="${ PRODUCT_LIST }">
 				
-							<form action="CartControllerServlet">
-								<input name="productName" value="${ product.product_name }" readonly>
-								<input name="productDesc" value="${ product.product_description }" readonly>
-								<input name="productPrice" value="${ product.product_price }" readonly>
+					<form action="CartControllerServlet">
+						<table>
+						<tr>
+							<td><input name="productName" value="${ product.product_name }" readonly></td>
+						</tr>
+						<tr>
+							<td>Description : <input name="productDesc" value="${ product.product_description }" readonly></td>
+							<td><input name="productPrice" value="${ product.product_price }" readonly style="text-align:right"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
 								<input type="hidden" name="username" value="${ username }">
 								<input type="hidden" name="quantity" value="3" />
 								<input type="hidden" name="command" value="ADD" />
 								<input type="submit" value="add to cart"/>
-							</form>
+							</td>
+						</tr>	
+						</table>
+					</form>
 							
 						<br>
 					
 					</c:forEach>
 				
-					
+				</center>	
 				
 				
 			
