@@ -1,8 +1,9 @@
-create database Shopping;
+DROP DATABASE IF EXISTS Shopping;
+CREATE DATABASE IF NOT EXISTS Shopping;
 
-use Shopping;
+USE Shopping;
 
-CREATE TABLE `shopping`.`user` (
+CREATE TABLE IF NOT EXISTS `shopping`.`user` (
   `Username` VARCHAR(45) NOT NULL,
   `Password` VARCHAR(45) NOT NULL,
   `Firstname` VARCHAR(45) NOT NULL,
@@ -13,10 +14,7 @@ CREATE TABLE `shopping`.`user` (
   `Address` VARCHAR(45) NOT NULL,
   `Contact` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`Username`));
-  
-DROP TABLE `shopping`.`user`;
-SELECT * FROM shopping.user;
-  
+    
 insert into shopping.user (Username, Password, Firstname, Lastname, Email, Gender, Dob, Address, Contact) values ('chewes0', 'Z66ETbOZ', 'Chauncey', 'Hewes', 'chewes0@instagram.com', 'Male', '1980-12-09', '83358 Nelson Lane', '227-759-9990');
 insert into shopping.user (Username, Password, Firstname, Lastname, Email, Gender, Dob, Address, Contact) values ('hsunman1', 'gykeI38I', 'Hugibert', 'Sunman', 'hsunman1@nature.com', 'Male', '1961-05-23', '30560 Northridge Circle', '115-731-8097');
 insert into shopping.user (Username, Password, Firstname, Lastname, Email, Gender, Dob, Address, Contact) values ('jbarrim2', '7PGb8A2', 'Jedediah', 'Barrim', 'jbarrim2@vkontakte.ru', 'Male', '2013-11-23', '3 Green Street', '558-371-7471');
@@ -27,19 +25,13 @@ insert into shopping.user (Username, Password, Firstname, Lastname, Email, Gende
 insert into shopping.user (Username, Password, Firstname, Lastname, Email, Gender, Dob, Address, Contact) values ('kkeavy7', '50Ns8Ix1KgS', 'Klarrisa', 'Keavy', 'kkeavy7@flickr.com', 'Female', '1988-11-25', '63 Lakewood Way', '674-124-0858');
 insert into shopping.user (Username, Password, Firstname, Lastname, Email, Gender, Dob, Address, Contact) values ('amarvin8', 'zuF2qBou5Fml', 'Alice', 'Marvin', 'amarvin8@mac.com', 'Female', '2003-03-20', '87675 Springview Place', '496-341-4861');
 insert into shopping.user (Username, Password, Firstname, Lastname, Email, Gender, Dob, Address, Contact) values ('klloyds9', 'CU1nMT', 'Katleen', 'Lloyds', 'klloyds9@gnu.org', 'Female', '2007-02-15', '3 Sachs Parkway', '432-943-0928');
-
   
-  
-  
-  CREATE TABLE `shopping`.`product` (
+  CREATE TABLE IF NOT EXISTS `shopping`.`product` (
   `Product_Id` INT NOT NULL,
   `Product_Name` VARCHAR(45) NOT NULL,
   `Product_Desc` VARCHAR(45) NOT NULL,
   `Product_Price` DOUBLE NOT NULL,
   PRIMARY KEY (`Product_Id`));
-
-DROP TABLE `shopping`.`product`;
-SELECT * FROM shopping.user;
 
 insert into shopping.product (Product_Id, Product_Name, Product_Desc, Product_Price) values (1, 'Shirt', 'Insertion of Spacer', 23.24);
 insert into shopping.product (Product_Id, Product_Name, Product_Desc, Product_Price) values (2, 'Shorts', 'Insertion of Single Array Stimulator', 35.23);
@@ -52,10 +44,7 @@ insert into shopping.product (Product_Id, Product_Name, Product_Desc, Product_Pr
 insert into shopping.product (Product_Id, Product_Name, Product_Desc, Product_Price) values (9, 'Underwear', 'Revision of Nonautologous Tissue', 90.00);
 insert into shopping.product (Product_Id, Product_Name, Product_Desc, Product_Price) values (10, 'Belt', 'Bypass Superior Vena Cava', 0.59);
 
-
-
-
-CREATE TABLE `shopping`.`cart` (
+CREATE TABLE IF NOT EXISTS `shopping`.`cart` (
   `Username` VARCHAR(45) NOT NULL,
   `Product_Id` INT NOT NULL,
   `Quantity` INT NOT NULL,
@@ -71,5 +60,13 @@ CREATE TABLE `shopping`.`cart` (
     REFERENCES `shopping`.`product` (`Product_Id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
-  DROP TABLE `shopping`.`cart`;
+    
+insert into shopping.cart (Username, Product_Id, Quantity) values ('amarvin8', 1, 1);
+insert into shopping.cart (Username, Product_Id, Quantity) values ('amarvin8', 2, 1);
+insert into shopping.cart (Username, Product_Id, Quantity) values ('amarvin8', 3, 5);
+insert into shopping.cart (Username, Product_Id, Quantity) values ('blandon6', 1, 6);
+insert into shopping.cart (Username, Product_Id, Quantity) values ('blandon6', 3, 7);
+insert into shopping.cart (Username, Product_Id, Quantity) values ('blandon6', 2, 10);
+insert into shopping.cart (Username, Product_Id, Quantity) values ('chewes0', 1, 3);
+insert into shopping.cart (Username, Product_Id, Quantity) values ('chewes0', 2, 6);
+insert into shopping.cart (Username, Product_Id, Quantity) values ('chewes0', 4, 10);
