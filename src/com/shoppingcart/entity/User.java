@@ -138,6 +138,4 @@ public class User {
 				+ first_name + ", last_name=" + last_name + ", email=" + email + ", gender=" + gender
 				+ ", date_of_birth=" + date_of_birth + ", address=" + address + ", contact=" + contact + "]";
 	}
-	
-	
 }
