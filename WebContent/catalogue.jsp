@@ -22,7 +22,7 @@
 		<!-- Navbar (sit on top) -->
 		<div class="w3-top">
 			<div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing: 4px;">
-				<a href="index.html" class="w3-bar-item w3-button">Avensys ShopLah!</a>
+				<a href="index.jsp" class="w3-bar-item w3-button">Avensys ShopLah!</a>
 				<!-- Right-sided navbar links. Hide them on small screens -->
 				<div class="w3-right w3-hide-small">
 					<c:url var="Jacket" value="CartControllerServlet">
@@ -59,31 +59,30 @@
 	
 		<!-- Product Section -->
 		<div class="w3-container w3-padding-64" id="contact">
-			<center>
-				<h1>Our Products</h1>
-				<br>
+			
+			<h1>Our Products</h1>
+			<br>
 	
-				<table border="1">
+			<table border="1">
+				<tr>
+					<th>Product Name</th>
+					<th>Product Description</th>
+					<th>Product Price</th>
+					<th></th>
+				</tr>
+				<c:forEach var="product" items="${ PRODUCT_LIST }">
 					<tr>
-						<th>Product Name</th>
-						<th>Product Description</th>
-						<th>Product Price</th>
-						<th></th>
+						<td>${ product.product_name }</td>
+						<td>${ product.product_description }</td>
+						<td>${ product.product_price }</td>
+						<c:url var="tempLink" value="CartControllerServlet">
+							<c:param name="command" value="ADD" />
+							<c:param name="productId" value="${ product.product_id }" />
+						</c:url>
+						<td><a href="${ tempLink }">Add to Cart</a></td>
 					</tr>
-					<c:forEach var="product" items="${ PRODUCT_LIST }">
-						<tr>
-							<td>${ product.product_name }</td>
-							<td>${ product.product_description }</td>
-							<td>${ product.product_price }</td>
-							<c:url var="tempLink" value="CartControllerServlet">
-								<c:param name="command" value="ADD" />
-								<c:param name="productId" value="${ product.product_id }" />
-							</c:url>
-							<td><a href="${ tempLink }">Add to Cart</a></td>
-						</tr>
-					</c:forEach>
-				</table>
-			</center>
+				</c:forEach>
+			</table>
 	
 		</div>
 	
