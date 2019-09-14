@@ -92,6 +92,5 @@
 		<footer class="w3-center w3-light-grey w3-padding-32">
 			<p>Avensys ShopLah! Copyright 2019</p>
 		</footer>
-	
 	</body>
 </html>
