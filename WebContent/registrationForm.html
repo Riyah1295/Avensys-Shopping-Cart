@@ -59,7 +59,7 @@
 				<div class="w3-col m6 w3-padding-large">
 					<h1 class="w3-center">Registration</h1>
 					<br>
-					<form action="/action_page.php" class="was-validated">
+					<form action="UserControllerServlet" class="was-validated">
 						<input type="hidden" name="command" value="REGISTER">
 						<div class="form-group">
 							<label for="UserName">Username: </label> <input type="text"
@@ -112,9 +112,9 @@
 						</div>
 						<div class="container">
 							<label class="radio-inline">Gender: <input type="radio"
-								name="optradio" checked required>Male
+								name="optradio" value="Male" checked required>Male
 							</label> <label class="radio-inline"> <input type="radio"
-								name="optradio">Female
+								name="optradio" value="Female">Female
 							</label>
 	
 						</div>
