@@ -83,6 +83,8 @@ public class UserDataUtil {
 			rst = pstmt.executeQuery();
 			if(rst.next()) { // this is only returning 1 row; the registered user
 				theUser = new User();
+				theUser.setUsername(rst.getString("Username"));
+				theUser.setPassword(rst.getString("password"));
 				theUser.setFirst_name(rst.getString("Firstname"));
 				theUser.setLast_name(rst.getString("Lastname"));
 				theUser.setEmail(rst.getString("Email"));

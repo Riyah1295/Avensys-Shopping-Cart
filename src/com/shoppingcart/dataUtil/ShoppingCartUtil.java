@@ -177,7 +177,7 @@ public class ShoppingCartUtil {
 		}
 	}
 
-	public void addCartDetails(String username, int productId, int qty) throws Exception {
+	public void addCartDetails(String username, String product_name, String product_desc, Double product_price, int quantity, Double total_quantity_price) throws Exception {
 		Connection con = null;
 		PreparedStatement pstmt=null;
 		
@@ -185,12 +185,16 @@ public class ShoppingCartUtil {
 			//create a connection
 			con = dataSource.getConnection();
 			//create sql query 
-			String qry = "insert into shopping.cart" + "(username, product_id, quantity) "+ "values(?,?,?)";
+			String qry = "INSERT INTO shopping.cart(Username, Product_Name, Product_Desc, Product_Price, Quantity, Total_Quantity_Price) VALUES(?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(qry);
 			//set the parameters for the students
 			pstmt.setString(1, username);
-			pstmt.setInt(2, productId);
-			pstmt.setInt(3, qty);
+			pstmt.setString(2, product_name);
+			pstmt.setString(3, product_desc);
+			pstmt.setDouble(4, product_price);
+			pstmt.setInt(5, quantity);
+			pstmt.setDouble(6, total_quantity_price);
+			
 			//execute the sql query
 			pstmt.execute();
 			}
@@ -216,5 +220,187 @@ public class ShoppingCartUtil {
 		}
 
 	}
+
+    	
+		public List<Product> getJacketItems() throws SQLException {
+			
+			List<Product> product = new ArrayList<>();
+			Product tempProduct = null;
+			Connection con = null;
+			PreparedStatement pstmt=null;
+			ResultSet rs = null;
+			
+			try {
+				//create a connection
+				con = dataSource.getConnection();
+				//create sql query 
+				String qry = "SELECT * FROM product_jacket";
+				pstmt = con.prepareStatement(qry);
+				//execute the sql query
+				rs= pstmt.executeQuery();
+				
+				while (rs.next())
+				{
+					int product_id = rs.getInt("Jacket_id");
+					String product_name = rs.getString("Product_Name");
+					String product_desc = rs.getString("Product_Desc");
+					double product_price = rs.getDouble("Product_Price");
+					// Create new product object
+					tempProduct = new Product(product_id, product_name, product_desc, product_price);
+					product.add(tempProduct);
+				}
+				
+				return product;
+				}
+				finally
+				{
+				close(con,pstmt,rs);
+				}
+			
+	    
+		}
+
+		public List<Product> getPantsItems() throws Exception {
+			List<Product> product = new ArrayList<>();
+			Product tempProduct = null;
+			Connection con = null;
+			PreparedStatement pstmt=null;
+			ResultSet rs = null;
+			
+			try {
+				//create a connection
+				con = dataSource.getConnection();
+				//create sql query 
+				String qry = "SELECT * FROM product_pants";
+				pstmt = con.prepareStatement(qry);
+				//execute the sql query
+				rs= pstmt.executeQuery();
+				
+				while (rs.next())
+				{
+					int product_id = rs.getInt("Pants_id");
+					String product_name = rs.getString("Product_Name");
+					String product_desc = rs.getString("Product_Desc");
+					double product_price = rs.getDouble("Product_Price");
+					// Create new product object
+					tempProduct = new Product(product_id, product_name, product_desc, product_price);
+					product.add(tempProduct);
+				}
+				
+				return product;
+				}
+				finally
+				{
+				close(con,pstmt,rs);
+				}
+		}
+
+		public List<Product> getShirtItems() throws Exception {
+			
+			List<Product> product = new ArrayList<>();
+			Product tempProduct = null;
+			Connection con = null;
+			PreparedStatement pstmt=null;
+			ResultSet rs = null;
+			
+			try {
+				//create a connection
+				con = dataSource.getConnection();
+				//create sql query 
+				String qry = "SELECT * FROM product_shirt";
+				pstmt = con.prepareStatement(qry);
+				//execute the sql query
+				rs= pstmt.executeQuery();
+				
+				while (rs.next())
+				{
+					int product_id = rs.getInt("Shirt_id");
+					String product_name = rs.getString("Product_Name");
+					String product_desc = rs.getString("Product_Desc");
+					double product_price = rs.getDouble("Product_Price");
+					// Create new product object
+					tempProduct = new Product(product_id, product_name, product_desc, product_price);
+					product.add(tempProduct);
+				}
+				
+				return product;
+				}
+				finally
+				{
+				close(con,pstmt,rs);
+				}
+		}
+
+		public List<Product> getShortItems() throws Exception {
+			
+			List<Product> product = new ArrayList<>();
+			Product tempProduct = null;
+			Connection con = null;
+			PreparedStatement pstmt=null;
+			ResultSet rs = null;
+			
+			try {
+				//create a connection
+				con = dataSource.getConnection();
+				//create sql query 
+				String qry = "SELECT * FROM product_shorts";
+				pstmt = con.prepareStatement(qry);
+				//execute the sql query
+				rs= pstmt.executeQuery();
+				
+				while (rs.next())
+				{
+					int product_id = rs.getInt("Shorts_Id");
+					String product_name = rs.getString("Product_Name");
+					String product_desc = rs.getString("Product_Desc");
+					double product_price = rs.getDouble("Product_Price");
+					// Create new product object
+					tempProduct = new Product(product_id, product_name, product_desc, product_price);
+					product.add(tempProduct);
+				}
+				
+				return product;
+				}
+				finally
+				{
+				close(con,pstmt,rs);
+				}
+		}
+
+		public List<Product> getShoeItems() throws SQLException {
+
+			List<Product> product = new ArrayList<>();
+			Product tempProduct = null;
+			Connection con = null;
+			PreparedStatement pstmt=null;
+			ResultSet rs = null;
+			
+			try {
+				//create a connection
+				con = dataSource.getConnection();
+				//create sql query 
+				String qry = "SELECT * FROM product_shoe";
+				pstmt = con.prepareStatement(qry);
+				//execute the sql query
+				rs= pstmt.executeQuery();
+				
+				while (rs.next())
+				{
+					int product_id = rs.getInt("Shoe_Id");
+					String product_name = rs.getString("Product_Name");
+					String product_desc = rs.getString("Product_Desc");
+					double product_price = rs.getDouble("Product_Price");
+					// Create new product object
+					tempProduct = new Product(product_id, product_name, product_desc, product_price);
+					product.add(tempProduct);
+				}
+				
+				return product;
+				}
+				finally
+				{
+				close(con,pstmt,rs);
+				}
+		}
 
 }
