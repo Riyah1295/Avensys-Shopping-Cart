@@ -2,6 +2,7 @@ package com.shoppingcart.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import com.shoppingcart.dataUtil.UserDataUtil;
+import com.shoppingcart.entity.Product;
 import com.shoppingcart.entity.User;
 
 /**
@@ -57,11 +59,14 @@ public class UserControllerServlet extends HttpServlet {
 			case "VIEW":
 				viewUser(request,response);
 				break;
+			case "LOGIN":
+				loginUser(request,response);
+				break;
 			case "REGISTER":
 				registerUser(request,response);
 				break;
 			default:
-				registerUser(request, response);
+				loginUser(request, response);
 			}
 			
 		}catch(Exception e) {
@@ -71,30 +76,22 @@ public class UserControllerServlet extends HttpServlet {
 	}
 
 	private void registerUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub */
 		/**
 		 * 1. Read input that is passed in
 		 * 2. create new user object to save the input
 		 * 3. insert new user into database
-		 */
-//		String user_firstname = request.getParameter(""); // TODO: find out the exact name of the input
-//		String user_lastname = request.getParameter("");
-//		String user_username = request.getParameter("");
-//		String user_email = request.getParameter("");
-//		String user_password = request.getParameter("");
-//		String user_gender = request.getParameter("");
-//		String user_dob = request.getParameter("");
-//		String user_address = request.getParameter("");
-//		String user_contact = request.getParameter("");
-		String user_firstname = "fdsafsa";
-		String user_lastname =  "fdsafsa";
-		String user_username =  "fdsafsa";
-		String user_email =  "fdsafsa@fdsa.co";
-		String user_password =  "fdsafsa";
-		String user_gender =  "fdsafsa";
-		String user_dob =  "1995-01-01";
-		String user_address =  "fdsafsa";
-		String user_contact =  "999";
+		 */ 
+		String user_firstname = request.getParameter("fname"); // TODO: find out the exact name of the input
+		String user_lastname = request.getParameter("lname");
+		String user_username = request.getParameter("uname");
+		String user_email = request.getParameter("email");
+		String user_password = request.getParameter("password");
+		String user_gender = request.getParameter("optradio");
+	String user_dob = request.getParameter("dob");
+	String user_address = request.getParameter("address");
+		String user_contact = request.getParameter("contact");
+		
 		
 		User theUser = new User(user_username,user_password,user_firstname,user_lastname,user_email, user_gender, user_dob,user_address,user_contact);
 		
@@ -105,10 +102,42 @@ public class UserControllerServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	private void viewUser(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void viewUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		/**
+		 * 1. retrieve user id from page
+		 * 2. execute sql statement in data util and retrieve user data from the user id
+		 * 3. save result set to new student object and set attribute
+		 */
+		String user_username = request.getParameter("");
+		User userProfile = userDataUtil.viewUserProfile(user_username);
 		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/.jsp"); // TODO: change the jsp to the profile page
+		request.setAttribute("", userProfile); // TODO: remember set the attribute name
+		dispatcher.forward(request, response);
 	}
-
+	
+	private void loginUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		/**
+		 * 1. retrieve user email and password and verify
+		 * 2. execute sql statement to find user
+		 * 3. save result set into new Student object and display.
+		 */
+		String uname = request.getParameter("uname");
+		String pswd = request.getParameter("pswd");
+		User thisUser = userDataUtil.loginUser(uname,pswd);
+		if(thisUser== null) { // this means no such email or password exist in the db, this will return back to login page to display error
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/.jsp"); // TODO: return to login page and display error message
+			request.setAttribute("", "username or password is incorrect."); // TODO: add the error msg name tag
+			dispatcher.forward(request, response);
+		}else { // thisUser has data inside, meaning the username and password matches
+			
+			List<Product> theProducts = userDataUtil.getProducts();
+					
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/catalogue.jsp"); // TODO: redirect to welcome page 
+			request.setAttribute("products", theProducts); // TODO: might have attributes you want to display, might add later.
+			dispatcher.forward(request, response);
+		}
+	}
 
 }
